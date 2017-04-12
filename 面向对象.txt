@@ -1,0 +1,420 @@
+http://blog.csdn.net/zerlinda_c/article/details/50345627
+
+
+
+
+在函数add创建时，他的作用域链中会填入一个全局对象，该全局对象包含了所有全局变量。
+函数的作用域链是创建函数的时候创建的
+
+闭包--函数
+闭包：有权去访问另一个函数作用域中的变量的函数。创建闭包的方式：在一个函数内部创建另一个内部（私有）函数。
+
+
+
+闭包1：
+在函外部直接调用局部变量x，报错
+返回值形式出现的私有方法。
+var a=test();a成为变量对象
+把里面内容生成后给外面的对象
+
+
+y函数依赖于test函数一直保留在内存中，不会被垃圾回收机制回收！
+
+
+
+ECMA-262
+把对象定义为“属性的无序集合”，每个属性存放一个原始值、对象或函数。这意味着对象是无特定顺序的值的数组。
+一些属性的集合，由属性方法组成。把整个JS都对象化了。
+   你认为的网站前端是什么？
+     ---网站前端的发展方向、网站前端的工作、
+
+ECMA-262通用的定义是基于代码的名词（人、地点或事物的表示）。
+
+类:对象的结构，确定了对象的行为。
+
+每一个对象都是由类定义的，可以把类看成是对象的配方。
+类不仅要定义对象的接口(interface)，（开发者访问的属性和方法）还要定义对象的内部工作（使属性和方法发挥作用的代码）。编译器和解释程序都根据类的说明构建对象。
+ 
+var a=new Array();
+   a叫做Array实例化的对象。
+new的过程叫实例化。
+
+实例：
+
+对象是类的实例。。。
+
+程序使用类创建对象时，生成的对象叫做类的实例。对类的对象的个数的唯一限制来自于代码的机器的物理内存。每个实例的行为相同，但实例处理一组独立的数据。根据对象的方法，由类创建对象实例的过程叫做实例化。
+
+
+面向对象特点：
+
+封装: 把相关的信息（无论数据或方法）存储在对象中的能力。（划分的比较清晰）
+聚集：（把相关的属性或特性）把一个对象存储在另一个对象内的能力。（在类里面看待：在一起上课）
+继承：由另一个类（或多个类）得来类的属性和方法的能力。（可以延用上一个和自身相似的内容）
+多态：同样是数组对象，可以在生成数组的时候就写上值。编写能以多种方法运行的函数或方法的能力。（知识表现形式，每一个表现形式不一样！）
+
+
+对象类型：
+
+可以创建并使用的对象有三种： 本地对象、内置对象、宿主对象。
+ECMA-262把本地对象定义为“独立于宿主环境的ECMAScript实现的对象。”简单来说，本地对象就是ECMA-262定义的类（引用类型）。
+
+Object、Function、Array、String、Boolean、Number、Date、RegExp、Error、EvalError、RangeError、ReferenceError、SyntaxError、TypeError、URIerror。、
+
+公用作用域中的对象属性可以从对象外部访问。
+私有作用域的属性只能在对象内部访问
+受保护的作用域也是作用于定义私有的属性和方法。
+
+
+this的作用：
+代表在当前方法使用的对象，
+当前的方法属于哪个对象，this就代表哪个对象。
+
+原始方式：创建对象。
+对象的属性可以在对象创建后动态定义，所以许多开发者都在javascript最初引入时编写下面的代码：
+定义了一个完整的对象：
+缺点：只能使用一次，没有在格式与代码上，
+var oCar=new object;
+    oCar.color="red";
+    oCar.doors="4";
+    oCar.showColor=function(){
+  alert(this.color;);
+}
+oCar.showColor(); //调用对象的方法
+实例的名称oCar,
+
+工厂方式:
+在代码上实现了完全封装。用方法封装。
+要解决该问题，开发者创建并返回特定类型的对象的工厂函数（factory function）
+
+返回整个对象。return 整个对象方法名
+
+闭包缺点：只能访问保留下来的值。
+
+构造函数方式：实现封装、动态、
+第一步，选择类名，即为构造函数的名字
+公有变量this.color、this.doors、this.mpg、this.showColor、
+this代表了
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+2017年4月7日刘老师录音整理笔
+
+
+
+//原始方式：----
+   var oCar=new Object;
+    oCar.color="red";
+   oCar.doors="4";
+   oCar.showColor=function(){
+    alert(this.color);
+    };
+    oCar.showColor()
+
+  利用Object本身的对象，oCar是创建了Object的一个实例，实例的名字叫oCar。实例是一个对象，对象是由属性和方法组成，属性是指color和doors.方法是showColor,整个对象所包含的内容是由两个属性和一个方法组成。
+  生成对象和普通方法的不同之处：不把color和doors放在一起，这个对象就称不上对象了。使用这个方法去定义，color会单独占一块缓存，doors会单独占据一块缓存。方法也会单独占据一块缓存。这俩属性和方法都属于全局的，再调用的时候，是调用全局的，在全局里面会有大量的属性存在。把他们写在一起就实现了对象的封装。使用的是oCar这一块缓存，而不是使用整个的缓存。
+ 
+  
+缺点：1、书写格式和语法上，书写格式上，虽然创建了对象，但在书写格式上没有实现真正的封装。2、全局对象，全局方法，就是成员对象，成员方法，在里面只能使用一次，一开始就已经赋值了，想使用多次，就得单独再设置一个方法，改变里面的内容。创建对象的时候没有很好的实现多态。
+
+
+
+
+
+
+//工厂方式:（在代码上实现完整的封装）（让整个对象作为返回值进行返回）不能存储。
+function createCar(){//语义化驼峰命名创建一个car
+  var oCar=new Object;//声明一个对象
+   oCar.color="red";
+   oCar.doors="4";
+   oCar.showColor=function(){
+  alert(this.color);
+  };
+  return oCar;
+  }
+  var newcar=createCar();//这个对象存到newcar里面，
+   alert(newcar.doors);
+   newcar.showColor();//实例里面的方法
+  var newcar1=createCar();
+   alert(newcar1.color);
+   newcar1.showColor();
+封装的必须是整个对象！！！（解决原始方式的不足，才创建的工厂方式）
+//在创建的时候实现代码上完整的封装，封装的时候也是用方法封装。
+//利用工厂函数方式去创建对象。
+
+定义两个对象的时候，里面的值还是原始的值。
+//工厂方式和原始方式的区别：   
+//闭包形式是获得上一个方法里面的对象变量，如果想分别获得方法里面的所有东西，就得让整个对象都返回。
+//闭包里只能访问里面保留下来的值！！！
+
+当使用的时候，必须创建对象newcar，当读到createCar的时候，会生成oCar对象，这个对象存到newcar里面，
+
+工厂方式的优点：省缓存，当用到这个对象时才会生成，不用的时候没有。原始方式，用不用缓存都存在。
+          缺点：方法无法共享，造成资源浪费。创建对象不带new关键字。
+
+
+
+
+//构造函数（把函数名称当成了对象，在实用的时候不能使用函数名称，用this代表当前的对象car）
+     function createCar(colors,doors){
+        this.color=colors;
+        this.door=doors;    
+        this.showColor=function(){
+        alert(this.color);
+     }
+    }
+     var car1=new createCar("red","4");
+     car1.showColor();
+     var car2=new createCar("blue","2")
+     car2.showColor();
+     alert(car1.door);
+     alert(car2.door); 
+
+选择的类名和构造函数名称是一样的。
+
+构造函数里的定义的类的私有变量，私有变量在使用的时候只能在自己内部使用，this.color、this.doors属于公有变量，把私有变量给了公有的，
+
+
+加this的指当前这个方法里是对象，this.color、this.doors代表的是成员变量，也就是公有变量，在外边也能使用它。
+3种定义对象和定义类的3种方法里：
+   构造函数类实现的最多，实现了封装，实现了多态、实现了聚集。
+生成一个类，实现多态的属性。
+
+构造函数：开始运行这个类的时候，自动的去加载构造函数。在Java里面的构造函数是和类的名称相同的名字就叫做构造函数。可以重复使用里面的内容。用的时候先创建
+
+
+
+
+
+
+
+
+原型对象：
+创建每一个函数的时候，都会有一个原型属性（prototype）。这个属性是一个指针，固定在一个地方指向一个对象，这个对象有自己的特定类型的供所有实例使用的属性和方法，那么prototype就是通过调用构造函数而创建的那个原型对象。
+
+每一个函数里都会有原型。
+
+理解:
+只要创建一个新的函数就会为该函数创建一个prototype属性，这个属性指向原型对象。
+所有的原型对象都会自动获得一个constructor(构造函数)属性，这个属性作用包含指向prototype属性的指针。通过他俩的关系建立连接。
+
+ECMA规定：所有JS里的东西都叫对象。
+
+function oCar(){}
+oCar.prototype.name="dong";
+oCar.prototype.door="4";
+oCar.prototype.info=function(){
+   alert("颜色:"+this.color+",车门:"+this.door);
+
+}
+var car1=new oCar();
+var car2=new oCar();
+car1.info();
+car2.info();
+仍然想使用构造函数，这个函数只起到接口的作用。通过prototype指针，把当前对象指向原型。
+function oCar(){  调用的都是里面的原型
+   oCar.prototype.color="red";
+oCar.prototype.door="4";
+}
+
+
+创建不同对象的时候，不可改变。
+
+
+
+///////////////////////////////////////////////////////////
+
+混合函数类：(构造函数和原型结合使用)
+原型对象创建时利用原型，prototype是一个引用。
+保留的内容用构造函数。让原型方法重复使用，提高了速度。构造函数用的时候才有
+function oCar(c,d){
+	this.color=c;
+	this.door=d;
+}
+
+oCar.prototype.info=function(){
+   alert("颜色:"+this.color+",车门:"+this.door);
+
+}
+var car1=new oCar("red","4");
+var car2=new oCar("green","2");
+car1.info();
+car2.info();
+
+
+类里面的特性：重写！只能重写原型里面已有的属性。
+
+
+
+
+原型链：
+每个对象和原型都有自己的原型。对象的原型指向原型对象。而父的原型又指向父的父，这种原型层层连接起来就构成了原型链。
+
+__proto__是所有对象（包括函数）都有的，他才叫做对象的原型，原型链就是靠他形成的。用于指向创建它的函数对象的原型对象prototype。
+prototype只有函数（准确说是构造函数）才有的。它跟原型链没有半毛钱关系，它的作用是：构造函数new对象的时候，告诉构造函数新创建的对象的原型是谁。只在new一个对象的时候才起作用。当你new完得到这个对象后，随便你怎么改构造函数的prototype属性，都不会影响已创建的对象的原型链。
+   例如：
+   var Person=function(){
+   var p=new Person();
+alert(p__pproto__===Person.prototype)//返回值为true。
+}
+例子解释：每一个对象都会在内部初始化一个__proto__属性，当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么他就会__proto__里找这个属性，这个__proto__又会有自己的__proto__，于是就这样一直找下去，也就是我们平时所说的原型链概念。
+
+按照标准，__proto__是不对外公开的，也就是说是个私有属性，（ie中对象的__proto__属性为undefined），但是firefox的引擎将他暴露出来成为一个公有的属性，我们可以对外访问和设置。
+
+__proto__只能在火狐利用，他是隐性的。
+
+
+原型链实例：
+
+var Person=function(){};
+Per on.prototype.Say=function(){
+  alert("Person");
+ 
+}
+var p=new Person();
+p.say();
+new Person();可以得出p.__proto__=Person.prototype
+当我们调用p.Say()时，首先p中没有say这个属性，于是，他就需要到他的__proto__中去找，也就是Person.prototype.而我们在上面定义了Person.prototype.Say=function(){};于是，就找到了这个方法。
+
+
+继承：
+继承的实现：
+所有开发者定义的类都可以作为基类。
+出于安全原因，本地类和宿主类不能作为基类，这样可以防止公用访问。编译过的浏览器级的代码，因为这些代码可以被用于恶意攻击。
+创建的子类将继承超(父类)类的所有属性和方法，包括构造函数及方法的实现。
+所有的属性和方法都是公用的，因此子类可直接访问这些方法。子类还可以添加超类(父亲类)中没有的新属性和方法，也可以覆盖超类的属性和方法。
+
+
+继承，多重：
+call方法的继承和apply方法的继承
+
+第一种方式继承：构造函数类的继承。
+<!-- 构造函数类继承 -->
+function ClassA(scolor){
+	this.color=scolor;
+    this.sayColor=function(){
+    alert(this.color);
+    }
+}
+function ClassB(scolor,sName){
+	this.newMethod=classA;
+	this.newMethod(scolor);
+	delete this.newMethod;
+
+	this.name=sName;
+	this.sayName=function(){
+	alert(this.name);
+	}
+}
+var objA=new ClassA("blue");
+var objB=new ClassB("red","John");
+objA.sayColor();
+objB.sayColor();
+objB.sayName();
+
+
+创建对象的原型：
+function oCar(){};
+oCar.prototype.color="red";
+oCar.prototype.door="4";
+oCar.prototype.info=function(){
+   alert("颜色:"+this.color+",车门:"+this.door);
+
+}
+var car1=new oCar();//car里面实例化对象
+var car2=new oCar();
+//判断在当前实例里面有没有color属性。
+alert(car1.hasOwnProperty("color"));继承原型对象里的
+判断car1实例对象是否有color。
+alert("color" in car1);
+car1.color="green";
+alert(car1.hasOwnProperty("color"));//true
+alert(car1.hasOwnProperty("door"));
+alert(car2.color);
+
+
+第二种继承方法：
+
+apply方法生成了继承关系
+子类.apply(父类名字，new Array(子类参数，子类参数))；//数组里参数是子类参数，每个参数用，隔开。
+例子：
+function sayColor(sPrefix,sSuffix){//子类  ---（构造函数）
+alert(sPrefix+this.color+sSuffix)
+};
+var obj=new Object();//原始方式创建函数（父类）
+obj.color="blue";
+
+sayColor.apply(obj,new Array("The color is","a very nice color indeed."));
+
+call和apply两种继承方式输出结果一样。他俩的区别：call继承是（括号里是）参数，apply继承是（括号里是）数组。
+
+第三种方式：
+call方法：子类.call(父类，参数，参数。。。)
+function sayColor(sPrefix,sSuffix){//子类    ---（构造函数）
+alert(sPrefix+this.color+sSuffix)
+};
+var obj=new Object();//原始方式创建函数（父类）
+obj.color="blue";
+
+sayColor.call(obj,"The color is","a very nice color indeed.");
+
+例子：
+function Ocar(colors,door){
+  this.color=colors;
+  this.door=doors;
+}
+function newcar(a){
+   alert(a+this.color+","+this.door);
+}
+newcar.call(Ocar("red","3"),"车的信息：");
+//red和3是构造函数Ocar的参数。车的信息是子类的参数。
+
+
+
+鼠标滑过div背景颜色改变。
+<body>
+<div id="d">fsd</div>
+<p id="p">p元素</p>
+封装在函数里：
+<script>
+function bg(obj,color){
+ obj.onmouseover=function(){
+   this.style.backgroundColor=color;
+}
+ obj.onmouseout=function(){
+   this.style.backgroundColor="";
+}
+}
+bg(document.getElementById("d"),"#f00");
+</script>
+
+
+原型对象创建：很少用原型封装。
+<div>
+<h3 id="b">标题</h3>
+<ul>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+</ul>
+</div>
+css样式:
+js代码：
+document.getElementById("b").onclick=function(){
+   if(this.parentNode.children[1].className=="show"){
+      this.parentNode.children[1].className="";
+   }else{
+     this.parentNode.children[1].className="show";
+    }
+}
+封装上面的代码；
+function showtitle(obj,cla){
+    obj.onclick=function(){
+   if(this.parentNode.children[1].className==cla){
+      this.parentNode.children[1].className="";
+   }else{
+     this.parentNode.children[1].className=cla;
+    }
+ }
+}
+showtitle(document.getElementById("b"),"show");
